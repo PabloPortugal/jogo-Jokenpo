@@ -3,67 +3,136 @@ package jogoJoken;
 import java.util.Random;
 import java.util.Scanner;
 
-
 public class JogoJoken {
 
 	public static void main(String[] args) {
 		
-		
-		System.out.println("Regras do jogo:");
-		System.out.println(" ");
-		System.out.println("1 equivale a PEDRA");
-		System.out.println("2 equivale a PAPEL");
-		System.out.println("3 equivale a TESOURA");
-		System.out.println(" ");
-		
-		int numSorteado, jogador, valor1, valor2, valor3;
-				
-		Scanner teclado = new Scanner (System.in); // chamei scanner de teclado
-		System.out.print("Faça sua jogada: ");
-		jogador= teclado.nextInt();
-		teclado.close();	
-		
-		Random sorteio= new Random(); // chamei random de sorteio
-		numSorteado = sorteio.nextInt(3)+1; // +1 soma ao número sorteado pelo random
-		System.out.println("O computador escolheu: "+numSorteado);
-		
-		
-		// determinar quem venceu
-		
-		if (jogador==1) {
-			if(numSorteado==1) {
-				System.out.println("Empate!");
-			}else if(numSorteado==2) {
-			System.out.println("O Computador Venceu!");
-			}else {
-				System.out.println("Você venceu!!");
-			}
-			
-		}else if(jogador==2) {
-			if(numSorteado==2) {
-				System.out.println("Empate!");
-			}else if(numSorteado==1) {
-				System.out.println("Você venceu!!");
-			}else {
-				System.out.println("Computador venceu!");
-			}
-		}else {
-			if(numSorteado==3) {
-				System.out.println("Empate!");
-			}else if(numSorteado==1) {
-				System.out.println("O Computador venceu!");
-			}else {
-				System.out.println("Você venceu!!");
+			Scanner leitor = new Scanner(System.in);
+			Random  sc= new Random();
+			int sorte = sc.nextInt(3) + 1;
+
+			int qtdDeRodadas;
+			int escolhaJogada;
+			int vitoriasRodadasJogador = 0;
+			int vitoriasRodadasMaquina = 0;
+
+			System.out.println("---------------------------");
+			System.out.println("      J O K E N P O ");
+			System.out.println("---------------------------");
+			System.out.println();
+
+			String escolhaDoUsuario = "s";
+			int contador = 0;
+
+			while (escolhaDoUsuario.equalsIgnoreCase("s")) {
+
+				System.out.print("Digite a quantidade de partidas: ");
+				qtdDeRodadas = leitor.nextInt();
+				System.out.println("");
+				System.out.println("---------------------------");
+
+				while (contador < qtdDeRodadas) {
+
+					while (qtdDeRodadas % 2 == 0 || qtdDeRodadas <= 3) {
+						System.out.println("Por favor não digite números pares ou menores e iguais a 3 !!!");
+						System.out.println();
+						System.out.println("Digite a quantidade de rodadas: ");
+						qtdDeRodadas = leitor.nextInt();
+					}
+
+					System.out.println("Escolha um: ");
+					System.out.println("[1] - Pedra");
+					System.out.println("[2] - Papel");
+					System.out.println("[3] - Tesoura");
+					System.out.println();
+
+					System.out.print("Digite o valor escolhido: ");
+					escolhaJogada = leitor.nextInt();
+					System.out.println("");
+
+					if (escolhaJogada == 1) {
+						System.out.println("Você escolheu  pedra.");
+
+					} else if (escolhaJogada == 2) {
+						System.out.println("Você escolheu papel.");
+
+					} else if (escolhaJogada == 3) {
+						System.out.println("Você escolheu tesoura.");
+						System.out.println();
+					}
+
+					if (sorte == 1) {
+						System.out.println("O computador escolheu pedra.");
+
+					} else if (sorte == 2) {
+						System.out.println("O computador escolheu papel.");
+
+					} else if (sorte == 3) {
+						System.out.println("O computador escolheu tesoura.");
+						System.out.println();
+					}
+
+					while (escolhaJogada != 1 && escolhaJogada != 2 && escolhaJogada != 3) {
+						System.out.println("Escolhau um valor de 1 até 3: ");
+						System.out.println();
+
+						System.out.println("Escolha um: ");
+						System.out.println("[1] - Pedra");
+						System.out.println("[2] - Papel");
+						System.out.println("[3] - Tesoura");
+						System.out.println();
+
+						System.out.print("Digite o valor escolhido: ");
+						escolhaJogada = leitor.nextInt();
+						System.out.println("");
+					}
+
+					if ((escolhaJogada == 1 && sorte == 2) || (escolhaJogada == 2 && sorte == 3)
+							|| (escolhaJogada == 3 && sorte == 1)) {
+						System.out.println();
+						System.out.println("Você perdeu essa rodada! :(");
+						System.out.println();
+					} else if ((escolhaJogada == 1 && sorte == 3) || (escolhaJogada == 2 && sorte == 1)
+							|| (escolhaJogada == 3 && sorte == 2)) {
+						System.out.println();
+						System.out.println("Você ganhou essa rodada! :)");
+						System.out.println();
+					} else {
+						System.out.println();
+						System.out.println("Essa rodada empatou");
+						System.out.println();
+					}
+
+					if ((escolhaJogada == 1 && sorte == 2) || (escolhaJogada == 2 && sorte == 3)
+							|| (escolhaJogada == 3 && sorte == 1)) {
+						vitoriasRodadasMaquina = vitoriasRodadasMaquina + 1;
+
+					} else if ((escolhaJogada == 1 && sorte == 3) || (escolhaJogada == 2 && sorte == 1)
+							|| (escolhaJogada == 3 && sorte == 2)) {
+						vitoriasRodadasJogador = vitoriasRodadasJogador + 1;
+
+					} else {
+						System.out.println("Essa rodada empatou");
+					}
+
+					contador++;
+				}
+				if (vitoriasRodadasMaquina > vitoriasRodadasJogador) {
+					System.out.println("O computador ganhou :(");
+				} else {
+					System.out.println("Você ganhou :)");
+				}
+
+				System.out.print("Você deseja jogar mais? S/N");
+				System.out.print("");
+				escolhaDoUsuario = leitor.next();
+
+				while (!escolhaDoUsuario.equalsIgnoreCase("s") && !escolhaDoUsuario.equalsIgnoreCase("n")) {
+					System.out.println("Por favor não digite S caso queira continuar jogando e N caso queira parar!!!");
+					System.out.println();
+					escolhaDoUsuario = leitor.next();
+				}
+				leitor.close();
 			}
 		}
-	
-		
-		
-		
-		
-		
-		
-		
-
-}
-}
+	}
